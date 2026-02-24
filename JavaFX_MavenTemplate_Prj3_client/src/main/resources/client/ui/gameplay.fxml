@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="client.ui.GameController">
+
+    <!-- ================= TOP MENU ================= -->
+    <top>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu fx:id="optionsMenu" text="Options">
+                    <items>
+                        <MenuItem fx:id="exitItem"
+                                  text="Exit"
+                                  onAction="#onExit"/>
+
+                        <MenuItem fx:id="freshStartItem"
+                                  text="Fresh Start"
+                                  onAction="#onFreshStart"/>
+
+                        <MenuItem fx:id="newLookItem"
+                                  text="New Look"
+                                  onAction="#onNewLook"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="audioMenu" text="Audio">
+                    <items>
+                        <CustomMenuItem hideOnClick="false">
+                            <content>
+                                <VBox spacing="8" alignment="CENTER_LEFT">
+                                    <HBox spacing="10" alignment="CENTER_LEFT">
+                                        <Label text="Music Volume" minWidth="95"/>
+                                        <Slider fx:id="musicVolumeSlider"
+                                                min="0" max="100"
+                                                blockIncrement="5"
+                                                prefWidth="140"/>
+                                    </HBox>
+                                    <HBox spacing="10" alignment="CENTER_LEFT">
+                                        <Label text="SFX Volume" minWidth="95"/>
+                                        <Slider fx:id="sfxVolumeSlider"
+                                                min="0" max="100"
+                                                blockIncrement="5"
+                                                prefWidth="140"/>
+                                    </HBox>
+                                </VBox>
+                            </content>
+                        </CustomMenuItem>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <!-- ================= CENTER GRID ================= -->
+    <center>
+        <GridPane hgap="15" vgap="12">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="35"/>
+                <ColumnConstraints percentWidth="65"/>
+            </columnConstraints>
+
+            <!-- Balance -->
+            <Label text="Balance:" styleClass="side-label"
+                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="balanceLabel"
+                   text="\$100"
+                   style="-fx-font-size: 18; -fx-font-weight: bold;"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <!-- Total winnings -->
+            <Label text="Total Winnings:" styleClass="side-label"
+                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="totalWinningsLabel"
+                   text="\$0"
+                   style="-fx-font-size: 18; -fx-font-weight: bold;"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <!-- ANTE INPUT -->
+            <Label text="Ante:" styleClass="side-label"
+                   GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <HBox spacing="8" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <TextField fx:id="anteField" promptText="\$5–$25"/>
+                <Button fx:id="setAnteButton" text="Set" onAction="#onSetAnte"/>
+            </HBox>
+
+            <!-- PAIR PLUS INPUT -->
+            <Label text="Pair Plus:" styleClass="side-label"
+                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <HBox spacing="8" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <TextField fx:id="pairPlusField" promptText="\$5–$25 (optional)"/>
+                <Button fx:id="setPairPlusButton" text="Set" onAction="#onSetPairPlus"/>
+            </HBox>
+
+            <!-- PLAY / BET SUMMARY LINE -->
+            <Label text="Play:" styleClass="side-label"
+                   GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <Label fx:id="playLabel"
+                   id="betSummaryLabel"
+                   text="Ante: $0   Pair+: $0   Play: $0"
+                   GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+
+            <!-- DEALER CARDS -->
+            <Label text="Dealer:" styleClass="side-label"
+                   GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <VBox spacing="6" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                <HBox spacing="10">
+                    <ImageView fx:id="dealerCard1" fitWidth="120" fitHeight="170"/>
+                    <ImageView fx:id="dealerCard2" fitWidth="120" fitHeight="170"/>
+                    <ImageView fx:id="dealerCard3" fitWidth="120" fitHeight="170"/>
+                </HBox>
+                <Label fx:id="dealerRankLabel" text="" style="-fx-font-style: italic;"/>
+            </VBox>
+
+            <!-- PLAYER CARDS -->
+            <Label text="Player:" styleClass="side-label"
+                   GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <VBox spacing="6" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                <HBox spacing="10">
+                    <ImageView fx:id="playerCard1" fitWidth="120" fitHeight="170"/>
+                    <ImageView fx:id="playerCard2" fitWidth="120" fitHeight="170"/>
+                    <ImageView fx:id="playerCard3" fitWidth="120" fitHeight="170"/>
+                </HBox>
+                <Label fx:id="playerRankLabel" text="" style="-fx-font-style: italic;"/>
+            </VBox>
+
+            <!-- DEALER MESSAGES -->
+            <Label text="Dealer Says:" styleClass="side-label"
+                   GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <HBox spacing="10"
+                  alignment="TOP_LEFT"
+                  id="dealerMessageBox"
+                  GridPane.rowIndex="7" GridPane.columnIndex="1">
+                <ImageView fitWidth="90"
+                           fitHeight="120"
+                           preserveRatio="true"
+                           pickOnBounds="true"
+                           smooth="true">
+                    <image>
+                        <Image url="@dealer.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="6"
+                      alignment="TOP_LEFT"
+                      styleClass="dealer-bubble">
+                    <Label text="Dealer"
+                           styleClass="dealer-name"/>
+                    <TextArea fx:id="messageArea"
+                              VBox.vgrow="ALWAYS"
+                              styleClass="dealer-message"
+                              prefRowCount="5"
+                              prefHeight="100"
+                              wrapText="true"
+                              promptText="round logs / hints / errors …"/>
+                </VBox>
+            </HBox>
+        </GridPane>
+    </center>
+
+    <!-- ================= RIGHT BUTTONS ================= -->
+    <right>
+        <VBox spacing="10" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+            <Button fx:id="quickBetButton"
+                    text="Quick Bet (Q)"
+                    prefWidth="160"
+                    onAction="#onQuickBet"/>
+
+            <Button fx:id="dealButton"
+                    text="Deal (D)"
+                    prefWidth="160"
+                    onAction="#onDeal"/>
+
+            <Button fx:id="playButton"
+                    text="Play (P)"
+                    disable="true"
+                    prefWidth="160"
+                    onAction="#onPlay"/>
+
+            <Button fx:id="foldButton"
+                    text="Fold (F)"
+                    disable="true"
+                    prefWidth="160"
+                    onAction="#onFold"/>
+
+            <Button fx:id="continueButton"
+                    text="Continue (C)"
+                    visible="false"
+                    managed="false"
+                    prefWidth="160"
+                    onAction="#onContinue"/>
+        </VBox>
+    </right>
+
+</BorderPane>

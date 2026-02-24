@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="server.ui.ServerMonitorController">
+
+    <top>
+        <HBox spacing="16">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+            <Label text="Status:" style="-fx-font-size: 14;"/>
+            <Label fx:id="statusValueLabel" text="Stopped" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+
+            <Label text="Port:" style="-fx-font-size: 14;"/>
+            <Label fx:id="portValueLabel" text="-" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+
+            <Label text="Connected:" style="-fx-font-size: 14;"/>
+            <Label fx:id="connectedCountLabel" text="0" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="backButton" text="Back to Intro" />
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="16">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+
+            <VBox spacing="10" prefWidth="220" minWidth="200" maxWidth="200" HBox.hgrow="NEVER">
+                <Label text="Clients:" style="-fx-font-size: 14;"/>
+                <ListView fx:id="clientListView" prefWidth="220" prefHeight="600"/>
+            </VBox>
+
+            <VBox spacing="10" prefWidth="545" minWidth="400" HBox.hgrow="ALWAYS">
+                <Label text="Game Results:" style="-fx-font-size: 14;"/>
+                <TableView fx:id="gameTable" prefWidth="480" prefHeight="320">
+                    <columns>
+                        <TableColumn fx:id="clientCol" text="Client" prefWidth="105"/>
+                        <TableColumn fx:id="handCol" text="Hand" prefWidth="60"/>
+                        <TableColumn fx:id="betsCol" text="Bets" prefWidth="190"/>
+                        <TableColumn fx:id="outcomeCol" text="Outcome" prefWidth="70"/>
+                        <TableColumn fx:id="netCol" text="Net" prefWidth="60"/>
+                        <TableColumn fx:id="balanceCol" text="Balance" prefWidth="60"/>
+                    </columns>
+                </TableView>
+
+                <Label text="Game Events:" style="-fx-font-size: 14;"/>
+                <ListView fx:id="gameEventsListView" prefWidth="480" prefHeight="260"/>
+            </VBox>
+
+            <VBox spacing="10" prefWidth="260" minWidth="260" maxWidth="260" HBox.hgrow="NEVER">
+                <Label text="Server Log:" style="-fx-font-size: 14;"/>
+                <ListView fx:id="logListView" prefWidth="360" prefHeight="600"/>
+            </VBox>
+
+            <VBox spacing="10" prefWidth="260" minWidth="260" maxWidth="260" HBox.hgrow="NEVER">
+                <Label text="Top 10 Players:" style="-fx-font-size: 14;"/>
+                <ListView fx:id="leaderboardListView" prefWidth="260" prefHeight="600"/>
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>

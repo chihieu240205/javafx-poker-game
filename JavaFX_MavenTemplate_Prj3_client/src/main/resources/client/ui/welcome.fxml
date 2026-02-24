@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="client.ui.WelcomeController"
+           styleClass="welcome-root">
+
+    <BorderPane>
+        <center>
+            <VBox fx:id="welcomePane" alignment="CENTER" spacing="18">
+                <padding>
+                    <Insets top="40" bottom="40" left="40" right="40"/>
+                </padding>
+
+                <!-- Title -->
+                <Label fx:id="welcomeTitle"
+                       text="Networked 3 Card Poker"/>
+                <Label text="Shuffle up and deal! Enter your server details to join the table."
+                       styleClass="welcome-subtitle"/>
+
+                <!-- Form -->
+                <GridPane hgap="12" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Server IP:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="ipField"
+                               promptText="127.0.0.1"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Port:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="portField"
+                               promptText="5555"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <HBox spacing="12" alignment="CENTER">
+                    <Button fx:id="connectButton"
+                            text="Connect"
+                            onAction="#onConnect"
+                            prefWidth="160"/>
+                    <Label fx:id="statusLabel"/>
+                </HBox>
+
+                <Label fx:id="welcomeFooter"
+                       text="Pro tip: start your dealer server locally on port 5555."/>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="server.ui.ServerIntroController">
+
+    <center>
+        <VBox spacing="16" alignment="CENTER">
+            <Label text="3-Card Poker Server" style="-fx-font-size: 24;" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Port:"/>
+                <TextField fx:id="portField" promptText="5555" prefWidth="120"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="startButton" text="Start Server" prefWidth="140" />
+                <Button fx:id="stopButton" text="Stop Server" prefWidth="140" />
+                <Button fx:id="monitorButton" text="Open Monitor" prefWidth="140" />
+            </HBox>
+
+            <Label fx:id="statusLabel" text="Status: Stopped" />
+        </VBox>
+    </center>
+
+</BorderPane>
